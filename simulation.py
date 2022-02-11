@@ -1,20 +1,66 @@
-import matplotlib as plt
 import numpy as np
 import pandas as pd
 
 ### Simulation Exercises
 
 #PROBLEM 1: How likely is it that you roll doubles when rolling two dice?
-
+### Making the dataframe
 n_trials = n_rows = 10_000
 n_dice = n_cols = 2
 rolls = np.random.choice([1,2,3,4,5,6], n_trials * n_dice).reshape(n_rows, n_cols)
 
-doubles = 
+#### This one gave me half the answer
+rolls_mean = rolls.sum(axis =1) / 2
+double = rolls_mean == rolls[:,:1]
+double.mean()
 
-#PROBLEM 2: If you flip 8 coins, what is the probability of getting exactly 3 heads? What is the probability of getting more than 3 heads?
+#### This gave me the answer
+doubles = rolls[:,:1] == rolls[:,1:]
+doubles.mean()
+
+#### Confused myself why they were different
+roll = np.random.randint(1, 7, size = (n_rows, n_cols))
+
+#### Working with Zack this worked and I'm still confused why
+roll_mean = roll.sum(axis =1) / 2
+double_ = roll_mean == roll[:,0]
+double_.mean()
+
+doubles_ = roll[:,:1] == roll[:,1:]
+doubles_.mean()
+#### Either way this works.
+
+#PROBLEM 2: If you flip 8 coins, what is the probability of getting exactly 3 heads? 
+
+n_trials = n_rows = 10_000
+n_flips = n_cols = 8
+flips = np.random.choice([1,0], n_trials * n_flips).reshape(n_rows,n_cols)
+three_flips = flips.sum(axis=1) == 3
+three_flips.mean()
+
+# What is the probability of getting more than 3 heads?
+greater_than_three_flips = flips.sum(axis=1) > 3
+greater_than_three_flips.mean()
+
+### For my own sanity
+less_than_three_flips = flips.sum(axis=1) < 3
+less_than_three_flips.mean()
 
 #PROBLEM 3: There are approximitely 3 web development cohorts for every 1 data science cohort at Codeup. Assuming that Codeup randomly selects an alumni to put on a billboard, what are the odds that the two billboards I drive past both have data science students on them?
+
+n_trails = n_rows = 10_000
+n_billboards = n_cols = 2
+
+cohorts = np.random.randint([1,5], size = (n_rows,n_cols))
+cohorts
+
+bill_sum = cohorts.sum(axis=1)
+bill_sum
+
+both_bill = bill_sum == 8
+both_bill
+
+both_bill.mean()
 
 #PROBLEM 4: Codeup students buy, on average, 3 poptart packages with a standard deviation of 1.5 a day from the snack vending machine. If on monday the machine is restocked with 17 poptart packages, how likely is it that I will be able to buy some poptarts on Friday afternoon? (Remember, if you have mean and standard deviation, use the np.random.normal)
 
