@@ -66,10 +66,10 @@ both_bill.mean()
 #PROBLEM 4: Codeup students buy, on average, 3 poptart packages with a standard deviation of 1.5 a day from the snack vending machine. If on monday the machine is restocked with 17 poptart packages, how likely is it that I will be able to buy some poptarts on Friday afternoon? (Remember, if you have mean and standard deviation, use the np.random.normal)
 
 n_trials = 10_000
-n_days = 5
+n_days = 4
 
-poptarts = np.random.normal(loc = 3,scale = 1.5, size = (n_trials, n_days))
-poptarts
+poptart_days = np.random.normal(loc = 3,scale = 1.5, size = (n_trials, n_days)).round()
+poptarts = np.where(poptart_days < 0, 0, poptart_days)
 
 poptarts_left = poptarts.sum(axis=1) < 17
 poptarts_left
@@ -144,8 +144,8 @@ no_truck_in_three = (food_truck_at_travis().max(axis=1) == 0).mean()
 no_truck_in_three
 
 #How likely is it that a food truck will show up sometime this week?
-truck_in_seven = (food_truck_at_travis(7).max(axis=1) == 1).mean()
-truck_in_seven
+truck_in_five = (food_truck_at_travis(5).max(axis=1) == 1).mean()
+truck_in_five
 
 #PROBLEM 8: If 23 people are in the same room, what are the odds that two of them share a birthday? 
 
