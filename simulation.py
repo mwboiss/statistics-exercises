@@ -153,7 +153,7 @@ def same_bday(people = 23):
     n_trials = 10_000
     b_day = pd.DataFrame(np.random.randint(1,366,size = (n_trials,people)))
     unique_b_day = b_day.apply(lambda day: day.is_unique, axis = 1)
-    return unique_b_day.mean()
+    return 1 - unique_b_day.mean()
 
 same_bday()
 
